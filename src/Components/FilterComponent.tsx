@@ -1,22 +1,68 @@
 import {Button, InputLabel, TextField} from "@mui/material";
 import {PriorityLevelOption, StateOption} from "../Models/enums"
-import {useState} from "react";
-import {MultiSelect} from "react-multi-select-component";
+import {MultiSelect, Option} from "react-multi-select-component";
+import {useContext, useState} from "react";
+import {ParameterContext, ParameterType} from "./Context/ParameterContext";
 
 
 export default function FilterComponent() {
 
-    const [PriorityFilter, setPriorityFilter] = useState([]);
-    const [StateFilter, setStateFilter] = useState([])
-    const [TextFilter, setTextFilter] = useState("");
+    const context = useContext<ParameterType>(ParameterContext);
 
+    const {parameters, setParameters, resetParameters} = context;
+
+    const [priorityLevel, setPriorityLevel] = useState<Option[]>([]);
+    const [state, setState] = useState<Option[]>([]);
+
+
+    const handlePriorityChange = (event:Option[]) => {
+
+        console.log(event)
+
+        setPriorityLevel(event)
+
+
+    }
+
+    const handleStateChange = (event: Option[]) => {
+        console.log(event)
+
+        setState(event)
+    }
 
     const SubmitSearch = () => {
 
         console.log("Sumbitted: ");
-        console.log(StateFilter);
-        console.log(TextFilter);
-        console.log(PriorityFilter);
+
+        let stateParam = ""
+
+        switch (state.length) {
+            case 0: {
+                break
+            }
+            case 1: {
+                if(state.includes(StateOption[0])){ // done
+                    stateParam = "done"
+                }
+                if(state.includes(StateOption[1])){ // undone
+                    stateParam = "undone"
+                }
+                break
+            }
+            case 2: {
+                break
+            }
+        }
+
+
+        setParameters({
+            ...parameters,
+            priorityFilter: priorityLevel.map((item) => item.value),
+            stateFilter: stateParam,
+        })
+
+
+
 
 
     }
@@ -27,12 +73,14 @@ export default function FilterComponent() {
         <div className={"container flex flex-col gap-2 border-2 border-black p-4"}>
 
             <InputLabel htmlFor={"textFilter"}>Name</InputLabel>
-            <TextField id={"textFilter"} onChange={(e) => setTextFilter(e.target.value)}/>
+            <TextField id={"textFilter"}
+                       value={parameters.textFilter}
+                       onChange={(e) => setParameters({...parameters, textFilter: e.target.value})}/>
 
             <InputLabel htmlFor={"priorityFilter"}>Priority</InputLabel>
             <MultiSelect options={PriorityLevelOption}
-                         value={PriorityFilter}
-                         onChange={setPriorityFilter}
+                         value={priorityLevel}
+                         onChange={handlePriorityChange}
                          labelledBy={"Select priorities"}
                          overrideStrings={{
                              "allItemsAreSelected": "All, High, Medium, Low",
@@ -41,8 +89,8 @@ export default function FilterComponent() {
 
             <InputLabel htmlFor={"stateFilter"}>Priority</InputLabel>
             <MultiSelect options={StateOption}
-                         value={StateFilter}
-                         onChange={setStateFilter}
+                         value={state}
+                         onChange={handleStateChange}
                          labelledBy={"Select state"}
                          overrideStrings={{
                              "allItemsAreSelected": "All, Done, Undone",
