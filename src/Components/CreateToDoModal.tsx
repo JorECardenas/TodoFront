@@ -41,11 +41,20 @@ export default function CreateToDoModal({open, setClose}: CreateToDoModalProps) 
         setClose()
     }
 
+    const handleClose = () => {
+
+        setItem(defaultItem);
+
+        setClose();
+
+
+    }
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
 
         <Dialog open={open} onClose={setClose}>
-            <DialogTitle>Create ToDo</DialogTitle>
+            <DialogTitle>Create To Do</DialogTitle>
             <DialogContent className={"flex flex-col gap-2 p-3"}>
 
                 <TextField label={"To Do Description"}
@@ -79,7 +88,7 @@ export default function CreateToDoModal({open, setClose}: CreateToDoModalProps) 
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={setClose}>Close</Button>
+                <Button onClick={handleClose}>Close</Button>
                 <Button onClick={handleSubmit}>Create</Button>
             </DialogActions>
 

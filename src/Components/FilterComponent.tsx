@@ -3,6 +3,7 @@ import {PriorityLevelOption, StateOption} from "../Models/enums"
 import {MultiSelect, Option} from "react-multi-select-component";
 import {useContext, useState} from "react";
 import {ParameterContext, ParameterType} from "./Context/ParameterContext";
+import {DataContext} from "./Context/DataContext";
 
 
 export default function FilterComponent() {
@@ -10,10 +11,18 @@ export default function FilterComponent() {
     const context = useContext<ParameterType>(ParameterContext);
 
     const {parameters, setParameters, resetParameters} = context;
+    const { reloadData } = useContext(DataContext);
 
     const [priorityLevel, setPriorityLevel] = useState<Option[]>([]);
     const [state, setState] = useState<Option[]>([]);
 
+
+    const reset = () => {
+        setPriorityLevel([]);
+        setState([])
+
+        resetParameters()
+    }
 
     const handlePriorityChange = (event:Option[]) => {
 
@@ -62,7 +71,7 @@ export default function FilterComponent() {
         })
 
 
-
+        reloadData(parameters)
 
 
     }
@@ -97,7 +106,10 @@ export default function FilterComponent() {
                          }}
             />
 
-            <Button onClick={SubmitSearch}>Search</Button>
+            <div className={"flex flex-row gap-2 justify-end"}>
+                <Button onClick={reset}>Reset Filters</Button>
+                <Button onClick={SubmitSearch}>Search</Button>
+            </div>
 
         </div>
     )

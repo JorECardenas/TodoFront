@@ -28,7 +28,14 @@ export default function ParameterContextProvider({children}: PropsWithChildren) 
 
     const [filter, setFilter] = useState<FilterModel>(defaultParameters);
 
-    const resetFilters = () => {setFilter(defaultParameters)}
+    const resetFilters = () => {
+        setFilter({
+            ...filter,
+            textFilter:"",
+            priorityFilter:[],
+            stateFilter:"",
+        });
+    }
 
 
 

@@ -18,7 +18,6 @@ export const TodoAPI = {
             }
         })
 
-
         return response;
     },
     Create: async function getTodos(body: TodoItemDTO) {

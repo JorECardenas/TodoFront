@@ -1,38 +1,38 @@
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import CreateToDoModal from "./CreateToDoModal";
-import {TodoItem} from "../Models/TodoItem";
 import dayjs from "dayjs";
 import {TodoAPI} from "../APIs/TodoAPI";
+import {ParameterContext, ParameterType} from "./Context/ParameterContext";
+import {PaginatedDataDTO} from "../Models/PaginatedDataDTO";
+import {DataContext, DataContextType} from "./Context/DataContext";
+
+
+
 
 export default function TodoListComponent() {
 
     const [openModal, setOpenModal] = useState(false);
 
-    const openTodoModal = () => { setOpenModal(true); };
-    const closeTodoModal = () => { setOpenModal(false); };
+    const {data, setData, reloadData } = useContext<DataContextType>(DataContext);
+    const {parameters} = useContext<ParameterType>(ParameterContext);
 
-    const [data, setData] = useState<TodoItem[]>([])
+    const openTodoModal = () => { setOpenModal(true); };
+    const closeTodoModal = () => { setOpenModal(false); reloadData(parameters); };
+
+
 
     useEffect(() => {
-        TodoAPI.Get({
-            page: 1,
-            textFilter:undefined,
-            priorityFilter: [],
-            stateFilter:undefined,
-            sortBy: undefined,
-            sortOrder: undefined,
-        }).then((res) => {
-            console.log(res);
-            setData(res.data.content);
-        })
+        reloadData(parameters)
+
+
     }, [])
 
 
     return (
         <div className={"container"}>
 
-            <Button onClick={openTodoModal}>+ Create ToDo</Button>
+            <Button onClick={openTodoModal}>+ Create To Do</Button>
             <CreateToDoModal open={openModal} setClose={closeTodoModal} />
 
 
@@ -48,7 +48,7 @@ export default function TodoListComponent() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((item, key) => (
+                        {data.content.map((item, key) => (
                             <TableRow key={key}>
                                 <TableCell>O</TableCell>
                                 <TableCell>{item.text}</TableCell>
