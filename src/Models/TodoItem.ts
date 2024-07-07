@@ -1,13 +1,13 @@
 
 
 export interface TodoItem {
-    id:String;
+    id:string;
 
-    text: String;
+    text: string;
 
     done: boolean;
 
-    priority: String;
+    priority: string;
 
     creationDate: Date;
     dueDate: Date;

@@ -1,12 +1,19 @@
-import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    Button,
+    Pagination,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@mui/material";
 import {useContext, useEffect, useState} from "react";
 import CreateToDoModal from "./CreateToDoModal";
-import dayjs from "dayjs";
-import {TodoAPI} from "../APIs/TodoAPI";
 import {ParameterContext, ParameterType} from "./Context/ParameterContext";
-import {PaginatedDataDTO} from "../Models/PaginatedDataDTO";
 import {DataContext, DataContextType} from "./Context/DataContext";
-
+import DataTable from "./DataTable";
 
 
 
@@ -14,64 +21,43 @@ export default function TodoListComponent() {
 
     const [openModal, setOpenModal] = useState(false);
 
-    const {data, setData, reloadData } = useContext<DataContextType>(DataContext);
-    const {parameters} = useContext<ParameterType>(ParameterContext);
+    const {data, reloadData } = useContext<DataContextType>(DataContext);
+    const {parameters, setParameters} = useContext<ParameterType>(ParameterContext);
 
     const openTodoModal = () => { setOpenModal(true); };
     const closeTodoModal = () => { setOpenModal(false); reloadData(parameters); };
 
 
+    const handlePageChange = (event: unknown, value: number) => {
+        setParameters({
+            ...parameters,
+            page: value
+        })
+
+
+    }
 
     useEffect(() => {
         reloadData(parameters)
 
 
-    }, [])
+    }, [parameters])
 
 
     return (
         <div className={"container"}>
 
-            <Button onClick={openTodoModal}>+ Create To Do</Button>
+            <Button onClick={openTodoModal} variant={"contained"}>+ Create To Do</Button>
+
             <CreateToDoModal open={openModal} setClose={closeTodoModal} />
 
+            <div className={"flex flex-col items-center justify-center gap-4 mt-4"}>
 
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>O</TableCell>
-                            <TableCell>Text</TableCell>
-                            <TableCell>Priority</TableCell>
-                            <TableCell>Due Date</TableCell>
-                            <TableCell>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data.content.map((item, key) => (
-                            <TableRow key={key}>
-                                <TableCell>O</TableCell>
-                                <TableCell>{item.text}</TableCell>
-                                <TableCell>{item.priority}</TableCell>
-                                <TableCell>{dayjs(item.dueDate).format("DD/MM/YYYY")}</TableCell>
-                                <TableCell>
-                                    <Button>Delete</Button>
-                                    <Button>Edit</Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
+                <DataTable data={data.content} reload={() => reloadData(parameters)} />
 
-                </Table>
-            </TableContainer>
+                <Pagination count={data.totalPages} page={data.currentPage} onChange={handlePageChange}/>
 
-
-
-
-
-
-
-
+            </div>
 
         </div>
     )

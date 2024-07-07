@@ -20,7 +20,15 @@ export const TodoAPI = {
 
         return response;
     },
-    Create: async function getTodos(body: TodoItemDTO) {
+    GetById: async function getTodoById(id: string) {
+        const response = api.request({
+            url: `/api/todos/${id}`,
+            method: "GET"
+        })
+
+        return response;
+    },
+    Create: async function createToto(body: TodoItemDTO) {
         const response = api.request({
             url: '/api/todos',
             method: "POST",
@@ -28,5 +36,45 @@ export const TodoAPI = {
         })
 
         return response;
+    },
+    Update: async function updateTodo(id: string, body: TodoItemDTO) {
+        const response = api.request({
+            url: `/api/todos/${id}`,
+            method: "POST",
+            data: body
+        })
+    },
+    Delete: async function deleteTodo(id: string) {
+        const response = api.request({
+            url: `/api/todos/${id}`,
+            method: "DELETE"
+        })
+    },
+    MarkAsDone: async function todoDone(id: string) {
+        const response = api.request({
+            url: `/api/todos/${id}/done`,
+            method: "POST"
+        })
+    },
+    MarkAsUndone: async function todoUndone(id: string) {
+        const response = api.request({
+            url: `/api/todos/${id}/undone`,
+            method: "POST"
+        })
+    },
+    MarkAllDone: async function allTodosDone() {
+        const response = api.request({
+            url: `/api/todos/all/done`,
+            method: "POST"
+        })
+
+
+    },
+    MarkAllUndone: async function allTodosUndone() {
+        const response = api.request({
+            url: `/api/todos/all/undone`,
+            method: "POST"
+        })
     }
+
 }

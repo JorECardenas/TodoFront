@@ -22,6 +22,8 @@ export default function FilterComponent() {
         setState([])
 
         resetParameters()
+
+        reloadData(parameters)
     }
 
     const handlePriorityChange = (event:Option[]) => {
