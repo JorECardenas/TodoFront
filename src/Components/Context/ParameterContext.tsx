@@ -3,13 +3,14 @@ import {createContext} from "react";
 import {PropsWithChildren, useState} from "react";
 
 
-const defaultParameters = {
+const defaultParameters: FilterModel = {
     page: 1,
     textFilter: "",
     priorityFilter: [],
     stateFilter: "",
     sortBy: undefined,
-    sortOrder: undefined,
+    priorityOrder: undefined,
+    dueDateOrder: undefined,
 }
 
 export interface ParameterType {

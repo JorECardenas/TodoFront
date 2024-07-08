@@ -9,5 +9,5 @@ export interface TodoItemDTO {
 
     creationDate: Date;
 
-    dueDate: Date;
+    dueDate?: Date;
 }

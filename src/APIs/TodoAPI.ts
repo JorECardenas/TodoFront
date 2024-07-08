@@ -11,9 +11,10 @@ export const TodoAPI = {
             params:{
                 page: params.page,
                 textFilter: params.textFilter,
-                sortBy: params.sortBy,
-                sortOrder: params.sortOrder,
-                priorityFilter: params.priorityFilter,
+                sortBy: params.sortBy?.join(","),
+                priorityOrder: params.priorityOrder,
+                dueDateOrder: params.dueDateOrder,
+                priorityFilter: params.priorityFilter?.join(","),
                 stateFilter: params.stateFilter,
             }
         })

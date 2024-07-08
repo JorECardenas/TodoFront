@@ -1,16 +1,9 @@
 import {
     Button,
     Pagination,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow
 } from "@mui/material";
 import {useContext, useEffect, useState} from "react";
-import CreateToDoModal from "./CreateToDoModal";
+import CreateToDoModal from "./Modals/CreateToDoModal";
 import {ParameterContext, ParameterType} from "./Context/ParameterContext";
 import {DataContext, DataContextType} from "./Context/DataContext";
 import DataTable from "./DataTable";
@@ -37,11 +30,7 @@ export default function TodoListComponent() {
 
     }
 
-    useEffect(() => {
-        reloadData(parameters)
 
-
-    }, [parameters])
 
 
     return (
@@ -49,11 +38,11 @@ export default function TodoListComponent() {
 
             <Button onClick={openTodoModal} variant={"contained"}>+ Create To Do</Button>
 
-            <CreateToDoModal open={openModal} setClose={closeTodoModal} />
+            <CreateToDoModal open={openModal} setClose={closeTodoModal} reload={() => reloadData(parameters)} />
 
             <div className={"flex flex-col items-center justify-center gap-4 mt-4"}>
 
-                <DataTable data={data.content} reload={() => reloadData(parameters)} />
+                <DataTable reload={() => reloadData(parameters)} />
 
                 <Pagination count={data.totalPages} page={data.currentPage} onChange={handlePageChange}/>
 

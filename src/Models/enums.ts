@@ -8,3 +8,9 @@ export const StateOption = [
     { label: "Done", value: "done"},
     { label: "Undone", value: "undone"},
 ]
+
+export const OrderOption = [
+    "DESC",
+    "ASC",
+    ""
+]

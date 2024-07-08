@@ -4,5 +4,6 @@ export interface FilterModel {
     priorityFilter?: string[];
     stateFilter?: string;
     sortBy?: string[];
-    sortOrder?: string;
+    priorityOrder?: string;
+    dueDateOrder?: string;
 }

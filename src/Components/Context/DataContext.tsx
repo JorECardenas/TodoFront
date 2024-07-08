@@ -22,12 +22,19 @@ export const defaultData:PaginatedDataDTO = {
         sortBy: undefined,
         sortOrder: undefined,
     },
+    averageData: {
+        generalAverage: 0,
+        lowAverage: 0,
+        mediumAverage: 0,
+        highAverage: 0,
+    },
     currentPage: 1,
     itemsInPage: 0,
     totalItems: 0,
     totalPages: 0,
     firstPage: false,
     lastPage: false,
+    allDone: false,
 }
 
 
@@ -44,7 +51,7 @@ export default function DataContextProvider({ children }: { children: ReactNode 
 
     const reloadData = (params: FilterModel) => {
         TodoAPI.Get(params).then((res) => {
-            console.log(res);
+            //console.log(res);
             setData(res.data);
         })
     }

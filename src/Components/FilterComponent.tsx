@@ -1,7 +1,7 @@
 import {Button, InputLabel, TextField} from "@mui/material";
 import {PriorityLevelOption, StateOption} from "../Models/enums"
 import {MultiSelect, Option} from "react-multi-select-component";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {ParameterContext, ParameterType} from "./Context/ParameterContext";
 import {DataContext} from "./Context/DataContext";
 
@@ -17,18 +17,25 @@ export default function FilterComponent() {
     const [state, setState] = useState<Option[]>([]);
 
 
+    useEffect(() => {
+
+        reloadData(parameters)
+
+    }, [parameters]);
+
+
     const reset = () => {
         setPriorityLevel([]);
         setState([])
 
         resetParameters()
 
-        reloadData(parameters)
+
     }
 
     const handlePriorityChange = (event:Option[]) => {
 
-        console.log(event)
+        //console.log(event)
 
         setPriorityLevel(event)
 
@@ -81,7 +88,7 @@ export default function FilterComponent() {
 
 
     return (
-        <div className={"container flex flex-col gap-2 border-2 border-black p-4"}>
+        <div className={"container flex flex-col gap-2 border-2 border-gray-200 p-4"}>
 
             <InputLabel htmlFor={"textFilter"}>Name</InputLabel>
             <TextField id={"textFilter"}
