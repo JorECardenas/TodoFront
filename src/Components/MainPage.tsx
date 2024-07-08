@@ -9,8 +9,6 @@ import AverageDataComponent from "./AverageDataComponent";
 
 export default function MainPage() {
 
-
-
     return (
         <DataContextProvider>
             <ParameterContextProvider>

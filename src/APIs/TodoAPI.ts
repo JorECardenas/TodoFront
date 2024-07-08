@@ -1,6 +1,8 @@
-import {api} from "./config";
+import {api} from "./AxiosConfig";
 import {FilterModel} from "../Models/FilterModel";
 import {TodoItemDTO} from "../Models/TodoItemDTO";
+
+
 
 
 export const TodoAPI = {

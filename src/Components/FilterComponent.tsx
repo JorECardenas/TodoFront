@@ -105,7 +105,7 @@ export default function FilterComponent() {
                          }}
             />
 
-            <InputLabel htmlFor={"stateFilter"}>Priority</InputLabel>
+            <InputLabel htmlFor={"stateFilter"}>State</InputLabel>
             <MultiSelect options={StateOption}
                          value={state}
                          onChange={handleStateChange}
