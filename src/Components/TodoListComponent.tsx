@@ -2,7 +2,7 @@ import {
     Button,
     Pagination,
 } from "@mui/material";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import CreateToDoModal from "./Modals/CreateToDoModal";
 import {ParameterContext, ParameterType} from "./Context/ParameterContext";
 import {DataContext, DataContextType} from "./Context/DataContext";

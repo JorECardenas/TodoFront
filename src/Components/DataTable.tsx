@@ -20,7 +20,7 @@ import {ParameterContext} from "./Context/ParameterContext";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
-import {DataContext, DataContextType} from "./Context/DataContext";
+import {DataContext} from "./Context/DataContext";
 
 interface DataTableProps {
     reload: () => void;

@@ -30,13 +30,6 @@ interface editTodoModalProps {
     reload: () => void
 }
 
-const defaultItem: TodoItemDTO = {
-    text: undefined,
-    done: false,
-    dueDate: undefined,
-    priority: undefined,
-    creationDate: new Date(),
-}
 
 export default function EditTodoModal({open, setClose, item, reload}: editTodoModalProps) {
 
@@ -86,12 +79,14 @@ export default function EditTodoModal({open, setClose, item, reload}: editTodoMo
                     PaperProps={{
                         component: 'form',
                         onSubmit: handleSubmit,
+                        sx:{
+                           width:"100%" ,
+                        }
                     }}
-                    className={"min-w-80"}
             >
                 <DialogTitle>Create To Do</DialogTitle>
-                <DialogContent className={"flex flex-col gap-2 p-3 min-h-80"}>
-                    <FormControl fullWidth className={"flex flex-col gap-5 p-3 min-h-80"}>
+                <DialogContent style={{padding:'2%'}}>
+                    <FormControl fullWidth className={"flex flex-col gap-5 p-3 mt-4"}>
                         {/*<InputLabel htmlFor="text">Description</InputLabel>*/}
                         <TextField label={"To Do Description"}
                                    placeholder={"Description"}
@@ -100,21 +95,22 @@ export default function EditTodoModal({open, setClose, item, reload}: editTodoMo
                                    onChange={(e) =>
                                        setDto({...dto, text: e.target.value})}
                                    required
+
                         />
 
 
                         {/*<InputLabel htmlFor={"priority"}>Priority</InputLabel>*/}
-                        <Select id={"priority"}
+                        <TextField id={"priority"}
                                 value={dto.priority !== undefined ? dto.priority : ""}
                                 label={"Priority Level"}
                                 onChange={(e) =>
                                     setDto({...dto, priority: e.target.value})}
-                                required
+                                required select
                         >
                             {PriorityOptions.map((option) => (
                                 <MenuItem key={option} value={option}>{option}</MenuItem>
                             ))}
-                        </Select>
+                        </TextField>
 
                         <DateTimePicker label={"Due Date"}
                                         value={dayjs(dto.dueDate)}

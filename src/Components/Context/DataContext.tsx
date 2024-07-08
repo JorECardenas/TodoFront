@@ -1,6 +1,4 @@
 import {createContext, ReactNode, useState} from "react";
-import {TodoItem} from "../../Models/TodoItem";
-import {ParameterType} from "./ParameterContext";
 import {TodoAPI} from "../../APIs/TodoAPI";
 import {FilterModel} from "../../Models/FilterModel";
 import {PaginatedDataDTO} from "../../Models/PaginatedDataDTO";

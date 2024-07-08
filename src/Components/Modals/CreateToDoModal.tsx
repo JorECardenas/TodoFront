@@ -4,9 +4,8 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    FormControl, InputLabel,
+    FormControl,
     MenuItem,
-    Select,
     TextField
 } from "@mui/material";
 import {TodoAPI} from "../../APIs/TodoAPI";
@@ -15,7 +14,6 @@ import {TodoItemDTO} from "../../Models/TodoItemDTO";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import OutlinedInput from '@mui/material/OutlinedInput';
 
 
 const PriorityOptions = [
@@ -75,12 +73,14 @@ export default function CreateToDoModal({open, setClose, reload}: CreateToDoModa
                     PaperProps={{
                         component: 'form',
                         onSubmit: handleSubmit,
+                        sx:{
+                            width:"100%" ,
+                        }
                     }}
-                    className={"min-w-80"}
             >
                 <DialogTitle>Create To Do</DialogTitle>
-                <DialogContent>
-                    <FormControl fullWidth className={"flex flex-col gap-5 p-3 min-h-80"}>
+                <DialogContent style={{padding:'2%'}}>
+                    <FormControl fullWidth className={"flex flex-col gap-5 p-3"}>
                         <TextField label={"To Do Description"}
                                    placeholder={"Description"}
                                    value={item.text ?? ""}
