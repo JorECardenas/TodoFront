@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# Todo App Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple backend to manage an application to create, delete and edit Todo's
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This app works with the backend application found here:
+[Backend App](https://github.com/jorgencora/TodoBack)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Requirements
 
-### `npm test`
+To run this application you need to have [node](https://nodejs.org/en) installed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+If you have it installed already you need to run install the dependencies with the next command inside a terminal in the app folder:
+```shell
+npm install
+```
 
-### `npm run build`
+## Running the app locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run the app locally you need to run the following command:
+```shell
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running tests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This app already has some tests configured to check if the components are rendering correctly.
+To run these tests you need to use the following command in the terminal:
+```shell
+npm test
+```
 
-### `npm run eject`
+## Technologies used
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The following tools were used during the development of this app:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [React](https://es.react.dev/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Tailwind](https://tailwindcss.com/)
+- [Material UI](https://mui.com/)
+- [Jest](https://jestjs.io/)
+- [Axios](https://axios-http.com/es/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Things to improve
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Better designs
+- Improve test quality
+- More functionalities for sorting and filtering
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
