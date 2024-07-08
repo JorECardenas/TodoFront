@@ -137,7 +137,7 @@ export default function DataTable({reload}: DataTableProps){
                 sortBy:["priority"]
             })
         }
-        else if(priorityOrder !== "" && duedateOrder === ""){
+        else if(priorityOrder === "" && duedateOrder === ""){
             setParameters({...parameters,
                 priorityOrder: priorityOrder,
                 dueDateOrder: duedateOrder,
