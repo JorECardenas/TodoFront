@@ -176,9 +176,28 @@ export default function DataTable({reload}: DataTableProps){
 
     }
 
+    const getDoneDateState = (donedate: Date, duedate: Date, isDone: boolean) => {
+
+        if(!isDone || !dayjs(donedate).isValid()) { return "" }
+
+        const done = dayjs(donedate)
+        const due = dayjs(duedate)
+
+        if(!due.isValid()) { return "rounded bg-lime-200"}
+
+        if(done.isBefore(due, "s")) {return "rounded bg-lime-200"}
+        else {return "rounded bg-red-400"}
+
+        return "";
+
+
+
+
+    }
+
     const getDateStyle = (duedate: Date, isDone: boolean) => {
 
-        if(isDone || !dayjs(duedate).isValid()) { return "" }
+        if(!dayjs(duedate).isValid()) { return "" }
 
 
         const today = dayjs(new Date());
@@ -189,13 +208,13 @@ export default function DataTable({reload}: DataTableProps){
         console.log(today.format("DD/MM/YYY"), due.format("DD/MM/YYY"), diffInDays)
 
         if(diffInDays >= 14){
-            return "rounded bg-red-400"
+            return "rounded bg-lime-200"
         }
         else if(diffInDays >= 7){
             return "rounded bg-amber-200"
         }
         else if(diffInDays < 7){
-            return "rounded bg-lime-200"
+            return "rounded bg-red-400"
         }
 
 
@@ -205,7 +224,6 @@ export default function DataTable({reload}: DataTableProps){
 
     const getPriorityStyle = (priority: string, isDone: boolean) => {
 
-        if(isDone) {return ""}
 
         switch (priority) {
             case "High":{
@@ -255,7 +273,7 @@ export default function DataTable({reload}: DataTableProps){
                                 <TableCell style={{ width: 340 }}><p className={"w-full " + getTextStyle(item.done)}>{item.text}</p></TableCell>
                                 <TableCell><p className={"p-1 place-self-center w-16 text-center " + getPriorityStyle(item.priority, item.done)}>{item.priority}</p></TableCell>
                                 <TableCell><p className={"p-1 w-fit " + getDateStyle(item.dueDate, item.done)}>{dayjs(item.dueDate).isValid() ? dayjs(item.dueDate).format("DD/MM/YYYY hh:mm") : "No due date"}</p></TableCell>
-                                <TableCell>{dayjs(item.doneDate).isValid() ? dayjs(item.doneDate).format("DD/MM/YYYY hh:mm") : "Not completed yet"}</TableCell>
+                                <TableCell><p className={"p-1 w-fit " + getDoneDateState(item.doneDate, item.dueDate, item.done)}>{dayjs(item.doneDate).isValid() ? dayjs(item.doneDate).format("DD/MM/YYYY hh:mm") : "Not completed yet"}</p></TableCell>
                                 <TableCell>
                                     <ButtonGroup variant={"contained"}>
                                         <Button onClick={() => handleSelectDeleteItem(item)}>Delete</Button>
