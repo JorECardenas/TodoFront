@@ -25,7 +25,7 @@ export default function AverageDataComponent() {
     }
 
     return (
-        <div className={"container flex flex-row gap-4 content-between border-2 border-gray-200 p-3"}>
+        <div className={"container flex flex-row gap-4 content-between border-2 border-gray-200 p-3 bg-white"}>
             <div className={"container p-5 flex flex-col items-center justify-center gap-4"}>
                 <p>
                     General Average:

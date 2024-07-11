@@ -57,16 +57,18 @@ export const TodoAPI = {
             method: "POST"
         });
     },
-    MarkAllDone: async function allTodosDone() {
+    MarkAllDone: async function allTodosDone(params: FilterModel) {
         await api.request({
             url: `/api/todos/all/done`,
-            method: "POST"
+            method: "POST",
+            data: params
         });
     },
-    MarkAllUndone: async function allTodosUndone() {
+    MarkAllUndone: async function allTodosUndone(params: FilterModel) {
         await api.request({
             url: `/api/todos/all/undone`,
-            method: "POST"
+            method: "POST",
+            data: params
         });
     }
 
