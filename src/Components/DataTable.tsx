@@ -49,13 +49,13 @@ export default function DataTable({reload}: DataTableProps){
         setChecked(!checked);
 
         if(done){
-            TodoAPI.MarkAllUndone()
+            TodoAPI.MarkAllUndone(parameters).then((result) => {reload()})
 
         }else {
-            TodoAPI.MarkAllDone()
+            TodoAPI.MarkAllDone(parameters).then((result) => {reload()})
         }
 
-        reload();
+        //reload();
 
 
     }
@@ -100,10 +100,10 @@ export default function DataTable({reload}: DataTableProps){
 
         switch (order) {
             case "DESC": {
-                return (<ArrowUpwardIcon/>)
+                return (<ArrowDownwardIcon/>)
             }
             case "ASC": {
-                return (<ArrowDownwardIcon/>)
+                return (<ArrowUpwardIcon/>)
             }
             case "":
                 return (<SwapVertIcon/>)
@@ -169,6 +169,61 @@ export default function DataTable({reload}: DataTableProps){
         }
     }
 
+    const getTextStyle  = (state: boolean) => {
+
+
+        return state ? "line-through" : ""
+
+    }
+
+    const getDateStyle = (duedate: Date, isDone: boolean) => {
+
+        if(isDone || !dayjs(duedate).isValid()) { return "" }
+
+
+        const today = dayjs(new Date());
+        const due = dayjs(duedate)
+
+        const diffInDays = due.diff(today, "days", true)
+
+        console.log(today.format("DD/MM/YYY"), due.format("DD/MM/YYY"), diffInDays)
+
+        if(diffInDays >= 14){
+            return "rounded bg-red-400"
+        }
+        else if(diffInDays >= 7){
+            return "rounded bg-amber-200"
+        }
+        else if(diffInDays < 7){
+            return "rounded bg-lime-200"
+        }
+
+
+
+
+    }
+
+    const getPriorityStyle = (priority: string, isDone: boolean) => {
+
+        if(isDone) {return ""}
+
+        switch (priority) {
+            case "High":{
+                return "rounded bg-red-400"
+            }
+            case "Medium": {
+                return "rounded bg-amber-200"
+            }
+            case "Low": {
+                return "rounded bg-lime-200"
+            }
+        }
+
+        return ""
+
+
+    }
+
 
 
     return (
@@ -178,7 +233,7 @@ export default function DataTable({reload}: DataTableProps){
                     <TableHead>
                         <TableRow>
                             <TableCell><Checkbox checked={checked} onChange={() => handleGeneralChange(checked)}/></TableCell>
-                            <TableCell>Text</TableCell>
+                            <TableCell>Description</TableCell>
                             <TableCell>
                                 <button onClick={() => getNextOrder(priorityOrder, setPriorityOrder, true)}>
                                     Priority{getIcon(priorityOrder)}
@@ -197,9 +252,9 @@ export default function DataTable({reload}: DataTableProps){
                         {data.content.map((item, key) => (
                             <TableRow key={key}>
                                 <TableCell><Checkbox checked={item.done} onChange={() => handleIndividualCheck(item)}/></TableCell>
-                                <TableCell>{item.text}</TableCell>
-                                <TableCell>{item.priority}</TableCell>
-                                <TableCell>{dayjs(item.dueDate).isValid() ? dayjs(item.dueDate).format("DD/MM/YYYY hh:mm") : "No due date"}</TableCell>
+                                <TableCell style={{ width: 340 }}><p className={"w-full " + getTextStyle(item.done)}>{item.text}</p></TableCell>
+                                <TableCell><p className={"p-1 place-self-center w-16 text-center " + getPriorityStyle(item.priority, item.done)}>{item.priority}</p></TableCell>
+                                <TableCell><p className={"p-1 w-fit " + getDateStyle(item.dueDate, item.done)}>{dayjs(item.dueDate).isValid() ? dayjs(item.dueDate).format("DD/MM/YYYY hh:mm") : "No due date"}</p></TableCell>
                                 <TableCell>{dayjs(item.doneDate).isValid() ? dayjs(item.doneDate).format("DD/MM/YYYY hh:mm") : "Not completed yet"}</TableCell>
                                 <TableCell>
                                     <ButtonGroup variant={"contained"}>

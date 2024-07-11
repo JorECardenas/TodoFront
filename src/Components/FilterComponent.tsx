@@ -15,6 +15,7 @@ export default function FilterComponent() {
 
     const [priorityLevel, setPriorityLevel] = useState<Option[]>([]);
     const [state, setState] = useState<Option[]>([]);
+    const [text, setText] = useState<string>("");
 
 
     useEffect(() => {
@@ -27,6 +28,7 @@ export default function FilterComponent() {
     const reset = () => {
         setPriorityLevel([]);
         setState([])
+        setText("")
 
         resetParameters()
 
@@ -43,14 +45,14 @@ export default function FilterComponent() {
     }
 
     const handleStateChange = (event: Option[]) => {
-        console.log(event)
+        //console.log(event)
 
         setState(event)
     }
 
     const SubmitSearch = () => {
 
-        console.log("Sumbitted: ");
+        //console.log("Sumbitted: ");
 
         let stateParam = ""
 
@@ -77,6 +79,7 @@ export default function FilterComponent() {
             ...parameters,
             priorityFilter: priorityLevel.map((item) => item.value),
             stateFilter: stateParam,
+            textFilter: text,
         })
 
 
@@ -88,12 +91,12 @@ export default function FilterComponent() {
 
 
     return (
-        <div className={"container flex flex-col gap-2 border-2 border-gray-200 p-4"}>
+        <div className={"container flex flex-col gap-2 border-2 border-gray-200 p-4 bg-white"}>
 
             <InputLabel htmlFor={"textFilter"}>Name</InputLabel>
             <TextField id={"textFilter"}
-                       value={parameters.textFilter}
-                       onChange={(e) => setParameters({...parameters, textFilter: e.target.value})}/>
+                       value={text}
+                       onChange={(e) => setText(e.target.value)}/>
 
             <InputLabel htmlFor={"priorityFilter"}>Priority</InputLabel>
             <MultiSelect options={PriorityLevelOption}
