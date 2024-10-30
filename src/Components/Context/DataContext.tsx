@@ -33,6 +33,7 @@ export const defaultData:PaginatedDataDTO = {
     firstPage: false,
     lastPage: false,
     allDone: false,
+    completedItems: 0,
 }
 
 

@@ -25,7 +25,7 @@ export const TodoAPI = {
             method: "GET"
         });
     },
-    Create: async function createToto(body: TodoItemDTO) {
+    Create: async function createTodo(body: TodoItemDTO) {
         return api.request({
             url: '/api/todos',
             method: "POST",

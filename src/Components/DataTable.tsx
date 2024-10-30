@@ -8,7 +8,7 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow
+    TableRow,
 } from "@mui/material";
 import dayjs from "dayjs";
 import {TodoItem} from "../Models/TodoItem";
@@ -188,7 +188,6 @@ export default function DataTable({reload}: DataTableProps){
         if(done.isBefore(due, "s")) {return "rounded bg-lime-200"}
         else {return "rounded bg-red-400"}
 
-        return "";
 
 
 

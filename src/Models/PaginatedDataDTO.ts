@@ -27,4 +27,5 @@ export interface PaginatedDataDTO {
     firstPage: boolean;
     lastPage: boolean;
     allDone: boolean;
+    completedItems: number;
 }

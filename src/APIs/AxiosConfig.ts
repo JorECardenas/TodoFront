@@ -2,5 +2,6 @@ import axios from "axios";
 
 
 export const api = axios.create({
-    baseURL: 'http://localhost:9090',
+    baseURL: process.env.REACT_APP_API_BASE_URL,
+    timeout: Number(process.env.REACT_APP_API_TIMEOUT),
 })

@@ -93,7 +93,7 @@ export default function FilterComponent() {
     return (
         <div className={"container flex flex-col gap-2 border-2 border-gray-200 p-4 bg-white"}>
 
-            <InputLabel htmlFor={"textFilter"}>Name</InputLabel>
+            <InputLabel htmlFor={"textFilter"}>Description</InputLabel>
             <TextField id={"textFilter"}
                        value={text}
                        onChange={(e) => setText(e.target.value)}/>
@@ -108,7 +108,7 @@ export default function FilterComponent() {
                          }}
             />
 
-            <InputLabel htmlFor={"stateFilter"}>State</InputLabel>
+            <InputLabel htmlFor={"stateFilter"}>Completed State</InputLabel>
             <MultiSelect options={StateOption}
                          value={state}
                          onChange={handleStateChange}
