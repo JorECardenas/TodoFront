@@ -42,6 +42,8 @@ export default function TodoListComponent() {
 
             <div className={"flex flex-col items-center justify-center gap-4 mt-4"}>
 
+                <Pagination count={data.totalPages} page={data.currentPage} onChange={handlePageChange}/>
+
                 <DataTable reload={() => reloadData(parameters)} />
 
                 <Pagination count={data.totalPages} page={data.currentPage} onChange={handlePageChange}/>

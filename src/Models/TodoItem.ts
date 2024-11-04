@@ -1,7 +1,7 @@
 
 
 export interface TodoItem {
-    id:string;
+    id:number;
 
     text: string;
 

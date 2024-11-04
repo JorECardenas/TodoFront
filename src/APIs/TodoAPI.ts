@@ -19,7 +19,7 @@ export const TodoAPI = {
             }
         });
     },
-    GetById: async function getTodoById(id: string) {
+    GetById: async function getTodoById(id: number) {
         return api.request({
             url: `/api/todos/${id}`,
             method: "GET"
@@ -32,26 +32,26 @@ export const TodoAPI = {
             data: body,
         });
     },
-    Update: async function updateTodo(id: string, body: TodoItemDTO) {
+    Update: async function updateTodo(id: number, body: TodoItemDTO) {
         await api.request({
             url: `/api/todos/${id}`,
             method: "POST",
             data: body
         });
     },
-    Delete: async function deleteTodo(id: string) {
+    Delete: async function deleteTodo(id: number) {
         await api.request({
             url: `/api/todos/${id}`,
             method: "DELETE"
         });
     },
-    MarkAsDone: async function todoDone(id: string) {
+    MarkAsDone: async function todoDone(id: number) {
         await api.request({
             url: `/api/todos/${id}/done`,
             method: "POST"
         });
     },
-    MarkAsUndone: async function todoUndone(id: string) {
+    MarkAsUndone: async function todoUndone(id: number) {
         await api.request({
             url: `/api/todos/${id}/undone`,
             method: "POST"

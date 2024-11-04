@@ -54,23 +54,16 @@ export default function DataTable({reload}: DataTableProps){
         }else {
             TodoAPI.MarkAllDone(parameters).then((result) => {reload()})
         }
-
-        //reload();
-
-
     }
 
     const handleIndividualCheck = (item: TodoItem) => {
 
         if(item.done){
 
-            TodoAPI.MarkAsUndone(item.id)
+            TodoAPI.MarkAsUndone(item.id).then((result) => {reload()})
         } else {
-            TodoAPI.MarkAsDone(item.id)
+            TodoAPI.MarkAsDone(item.id).then((result) => {reload()})
         }
-
-        reload()
-
 
     }
 

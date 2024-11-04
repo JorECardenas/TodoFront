@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {DataContext} from "./Context/DataContext";
 import duration from "dayjs/plugin/duration";
 import dayjs from "dayjs";
-import {LinearProgress} from "@mui/material";
+import {CircularProgress} from "@mui/material";
 import {BarChart} from '@mui/x-charts/BarChart';
 
 
@@ -13,11 +13,13 @@ export default function AverageDataComponent() {
 
     const getTimeString = (average: number) => {
 
-        const minutesString = dayjs.duration(average).minutes().toString().padStart(2, "0");
+        const dur = dayjs.duration(average);
+        const hours = dur.hours();
+        const minutesString = dur.minutes().toString().padStart(2, "0");
+        const secondsString = dur.seconds().toString().padStart(2, "0");
 
-        const secondsString = dayjs.duration(average).seconds().toString().padStart(2, "0");
+        return `${hours.toString().padStart(2, "0")}:${minutesString}:${secondsString}`;
 
-        return `${minutesString}:${secondsString}`;
 
 
     }
@@ -28,30 +30,33 @@ export default function AverageDataComponent() {
 
     return (
         <div className={"container border-2 border-gray-200 p-3 bg-white"}>
-            <div className={"container"}>
-                <p>
-                    {"Completed " + data.completedItems + " out of " + data.totalItems + " tasks"}
-                </p>
-                <LinearProgress
-                    variant={"determinate"}
-                    value={getCompetedPercentage()}
-                    className={"mt-2"}
-                    sx={{height: 10, borderRadius: 5}}
-                />
-            </div>
+
             <div className={"container flex flex-row gap-4 content-between"}>
                 <div className={"container p-5 flex flex-col items-center justify-center gap-4"}>
-                    <p>
+                    <h1 className={"text-xl"}>
                         General Average:
-                    </p>
-                    <p>
+                    </h1>
+                    <p className={"text-3xl"}>
                         {getTimeString(data.averageData.generalAverage)}
                     </p>
+
+                    <p className={"text-xl"}>
+                        {"Completed " + data.completedItems + " out of " + data.totalItems + " tasks"}
+                    </p>
+                    <CircularProgress
+                        variant={"determinate"}
+                        value={getCompetedPercentage()}
+                        className={"mt-2"}
+                        size={100}
+                        thickness={5}
+                    />
 
                 </div>
                 <div className={"container p-3 flex flex-col items-center justify-center gap-4"}>
 
-                    Average by priority:
+                    <p className={"text-xl"}>
+                        Average by priority:
+                    </p>
 
                     <BarChart
                         series={[
@@ -67,12 +72,15 @@ export default function AverageDataComponent() {
                             colorMap: {
                                 type: "ordinal",
                                 colors: ["green", "yellow", "red"]
-                            }
+                            },
+                        }]}
+                        xAxis={[{
+                            label: "Time",
+                            valueFormatter: (value) => getTimeString(value)
                         }]}
                         layout={"horizontal"}
                         height={300}
                         width={450}
-                        colors={["#7C3AED", "#3C3AE3", "#AC30ED"]}
                         barLabel={(item, context) => {
                             if (item.value == null) {
                                 return null
@@ -81,20 +89,6 @@ export default function AverageDataComponent() {
                             return context.bar.width < 60 ? null : getTimeString(item.value)
                         }}
                     />
-
-
-                    {/*<div>*/}
-                    {/*    <p>*/}
-                    {/*        Low: {getTimeString(data.averageData.lowAverage)}*/}
-                    {/*    </p>*/}
-                    {/*    <p>*/}
-                    {/*        Medium: {getTimeString(data.averageData.mediumAverage)}*/}
-                    {/*    </p>*/}
-                    {/*    <p>*/}
-                    {/*        High: {getTimeString(data.averageData.highAverage)}*/}
-                    {/*    </p>*/}
-
-                    {/*</div>*/}
 
                 </div>
 
